@@ -16,8 +16,8 @@ plot.switch_backend('agg')
 sys.setrecursionlimit(10000)
 
 
-def load_data(_mono, _fold=None):
-    feat_file_fold = os.path.join(__spec_feat_dir, 'mbe_{}_fold{}.npz'.format('mon' if _mono else 'bin', _fold))
+def load_data(_feat_folder, _mono, _fold=None):
+    feat_file_fold = os.path.join(_feat_folder, 'mbe_{}_fold{}.npz'.format('mon' if _mono else 'bin', _fold))
     dmp = np.load(feat_file_fold)
     _X_train, _Y_train, _X_test, _Y_test = dmp['arr_0'],  dmp['arr_1'],  dmp['arr_2'],  dmp['arr_3']
     return _X_train, _Y_train, _X_test, _Y_test
@@ -36,14 +36,13 @@ def get_model(data_in, data_out, _cnn_nb_filt, _cnn_pool_size, _rnn_nb, _fc_nb):
     spec_x = Permute((2, 1, 3))(spec_x)
     spec_x = Reshape((data_in.shape[-2], -1))(spec_x)
 
-    for r in _rnn_nb:
+    for _r in _rnn_nb:
         spec_x = Bidirectional(
-            GRU(r, activation='tanh', dropout=dropout_rate, recurrent_dropout=dropout_rate, return_sequences=True),
+            GRU(_r, activation='tanh', dropout=dropout_rate, recurrent_dropout=dropout_rate, return_sequences=True),
             merge_mode='mul')(spec_x)
 
-    for f in _fc_nb:
-        spec_x = TimeDistributed(Dense(f))(spec_x)
-        spec_x = Activation('relu')(spec_x)
+    for _f in _fc_nb:
+        spec_x = TimeDistributed(Dense(_f))(spec_x)
         spec_x = Dropout(dropout_rate)(spec_x)
 
     spec_x = TimeDistributed(Dense(data_out.shape[-1]))(spec_x)
@@ -94,7 +93,7 @@ def preprocess_data(_X, _Y, _X_test, _Y_test, _seq_len, _nb_ch):
 
 is_mono = False  # True: mono-channel input, False: binaural input
 
-__spec_feat_dir = '/proj/asignal/DCASE2017/task_3/feat/'
+feat_folder = '/proj/asignal/DCASE2017/task_3/feat/'
 __fig_name = '{}_{}'.format('mon' if is_mono else 'bin', time.strftime("%Y_%m_%d_%H_%M_%S"))
 
 
@@ -119,10 +118,10 @@ __models_dir = 'models/'
 utils.create_folder(__models_dir)
 
 # CRNN model definition
-cnn_nb_filt = 64            # CNN filter size
+cnn_nb_filt = 128            # CNN filter size
 cnn_pool_size = [5, 2, 2]   # Maxpooling across frequency. Length of cnn_pool_size =  number of CNN layers
-rnn_nb = [64, 64]           # Number of RNN nodes.  Length of rnn_nb =  number of RNN layers
-fc_nb = [64]                # Number of FC nodes.  Length of fc_nb =  number of FC layers
+rnn_nb = [32, 32]           # Number of RNN nodes.  Length of rnn_nb =  number of RNN layers
+fc_nb = [32]                # Number of FC nodes.  Length of fc_nb =  number of FC layers
 dropout_rate = 0.5          # Dropout after each layer
 print('MODEL PARAMETERS:\n cnn_nb_filt: {}, cnn_pool_size: {}, rnn_nb: {}, fc_nb: {}, dropout_rate: {}'.format(
     cnn_nb_filt, cnn_pool_size, rnn_nb, fc_nb, dropout_rate))
@@ -134,7 +133,7 @@ for fold in [1, 2, 3, 4]:
     print('FOLD: {}'.format(fold))
     print('----------------------------------------------\n')
     # Load feature and labels, pre-process it
-    X, Y, X_test, Y_test = load_data(is_mono, fold)
+    X, Y, X_test, Y_test = load_data(feat_folder, is_mono, fold)
     X, Y, X_test, Y_test = preprocess_data(X, Y, X_test, Y_test, seq_len, nb_ch)
 
     # Load model
@@ -142,7 +141,7 @@ for fold in [1, 2, 3, 4]:
 
     # Training
     best_epoch, pat_cnt, best_er, f1_for_best_er, best_conf_mat = 0, 0, 99999, None, None
-    tr_loss, val_loss, f1_overall_1sec_list, er_overall_1sec_list  = [0] * nb_epoch, [0] * nb_epoch, [0] * nb_epoch, [0] * nb_epoch
+    tr_loss, val_loss, f1_overall_1sec_list, er_overall_1sec_list = [0] * nb_epoch, [0] * nb_epoch, [0] * nb_epoch, [0] * nb_epoch
     posterior_thresh = 0.5
     for i in range(nb_epoch):
         print('Epoch : {} '.format(i), end='')
@@ -179,8 +178,8 @@ for fold in [1, 2, 3, 4]:
             best_epoch = i
             pat_cnt = 0
 
-        print('tr Er : {}, val Er : {}, F1_overall : {}, ER_overall : {} Best ER : {}'.format(
-                tr_loss[i], val_loss[i], f1_overall_1sec_list[i], er_overall_1sec_list[i], best_er))
+        print('tr Er : {}, val Er : {}, F1_overall : {}, ER_overall : {} Best ER : {}, best_epoch: {}'.format(
+                tr_loss[i], val_loss[i], f1_overall_1sec_list[i], er_overall_1sec_list[i], best_er, best_epoch))
         plot_functions(nb_epoch, tr_loss, val_loss, f1_overall_1sec_list, er_overall_1sec_list, '_fold_{}'.format(fold))
         if pat_cnt > patience:
             break
@@ -191,5 +190,5 @@ for fold in [1, 2, 3, 4]:
     print('best_conf_mat: {}'.format(best_conf_mat))
     print('best_conf_mat_diag: {}'.format(np.diag(best_conf_mat)))
 
-
-print('\n\nMODEL AVERAGE OVER FOUR FOLDS: avg_er: {}, avg_f1: {}'.format(np.mean(avg_er), np.mean(avg_f1)))
+print('\n\nMETRICS FOR ALL FOUR FOLDS: avg_er: {}, avg_f1: {}'.format(avg_er, avg_f1))
+print('MODEL AVERAGE OVER FOUR FOLDS: avg_er: {}, avg_f1: {}'.format(np.mean(avg_er), np.mean(avg_f1)))
