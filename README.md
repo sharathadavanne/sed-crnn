@@ -1,2 +1,64 @@
-# multichannel-sed-crnn
-Multichannel sound event detection using convolutional recurrent neural networks. DCASE 2017 real-life sound event detection winning method.
+# Multichannel sound event detection using convolutional recurrent neural network (MSEDnet)
+MSEDnet was first proposed in 'Sound event detection using spatial features and convolutional recurrent neural network' (https://arxiv.org/abs/1706.02291). It recently won the DCASE 2017 real-life sound event detection (https://goo.gl/8eqCg3). We are releasing a simple vanila code without much frills here. 
+
+If you are using anything from this repository please consider citing,
+
+Sharath Adavanne, Pasi Pertila and Tuomas Virtanen, "Sound event detection using spatial features and convolutional recurrent neural network" in IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP 2017)
+
+Similar CRNN architecture has been successfully used for different tasks and research challenges as below. You can accordingly play around with a suitable prediction layer as the task requires.
+
+1. Sound event detection
+   - Sharath Adavanne, Pasi Pertila and Tuomas Virtanen, 'Sound event detection using spatial features and convolutional recurrent neural network' at IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP 2017) 
+   - Sharath Adavanne, Archontis Politis and Tuomas Virtanen, 'Multichannel sound event detection using 3D convolutional neural networks for learning inter-channel features' at International Joint Conference on Neural Networks (IJCNN 2018)
+
+2. SED with weak labels
+   - Sharath Adavanne and Tuomas Virtanen, 'Sound event detection using weakly labeled dataset with stacked convolutional and recurrent neural network' at Detection and Classification of Acoustic Scenes and Events (DCASE 2017)
+
+3. Bird audio detection 
+   - Sharath Adavanne, Konstantinos Drossos, Emre Cakir and Tuomas Virtanen, 'Stacked convolutional and recurrent neural networks for bird audio detection' at European Signal Processing Conference (EUSIPCO 2017)
+   - Emre Cakir, Sharath Adavanne, Giambattista Parascandolo, Konstantinos Drossos and Tuomas Virtanen, 'Convolutional recurrent neural networks for bird audio detection' at European Signal Processing Conference (EUSIPCO 2017)
+
+4. Music emotion recognition
+   - Miroslav Malik, Sharath Adavanne, Konstantinos Drossos, Tuomas Virtanen, Dasa Ticha, Roman Jarina , 'Stacked convolutional and recurrent neural networks for music emotion recognition', at Sound and Music Computing Conference (SMC 2017)
+
+
+## Getting Started
+
+This repository is built around the DCASE 2017 task 3 dataset, and consists of four Python scripts. 
+* The feature.py script, extracts the features, labels, and normalizes the training and test split features. Make sure you update the location of the wav files, evaluation setup and folder to write features in before running it. 
+* The sed.py script, loads the normalized features, and traines the MSEDnet. The training stops when the error rate metric in one second segment (http://tut-arg.github.io/sed_eval/) stops improving.
+* The metrics.py script, implements the core metrics from sound event detection evaluation module http://tut-arg.github.io/sed_eval/
+* The utils.py script has some utility functions.
+
+If you are only interested in the MSEDnet model then just check  `get_model()` function in the sed.py script.
+
+
+### Prerequisites
+
+The requirements.txt file consists of the libraries and their versions used. The Python script is written and tested in 2.7.10 version. You can install the requirements by running the following line
+
+```
+pip install -r requirements.txt
+```
+## Training the MSEDnet on development dataset of DCASE 2017
+
+* Download the dataset from https://zenodo.org/record/814831#.Ws2xO3VuYUE
+* Update the path of the `audio/street/` and `evaluation_setup` folders of the dataset in feature.py script. Also update the `feat_folder` variable with a local folder where the script can dump the extracted feature files. Run the script `python feature.py` this will save the features and labels of training and test splits in the provided `feat_folder`. Change the flag `is_mono` to `True` for single channel SED, and `False` for multichannel SED. Since the dataset used has only binaural audio, by setting `is_mono = False`, the MSEDnet trains on binaural audio.
+* In the sed.py script, update the `feat_folder` path as used in feature.py script.  Change the `is_mono` flag according to single or multichannel SED studies and run the script `python sed.py`. This should train on the default training split of the dataset, and evaluate the model on the testing split for all four folds.
+
+The sound event detection metrics - error rate (ER) and F-score for one second segment averaged over four folds are as following. Since the dataset is small the results vary quite a bit, hence we report the mean of five separate runs. An ideal SED method has an ER of 0 and F of 1.
+
+| MSEDnet mode | ER | F|
+| ----| --- | --- |
+| Single channel | 0.49 | 0.50 |
+| Multichannel |0.48 | 0.53|
+
+The results vary from the original paper, as we are not using the evaluation split here
+
+## License
+
+This repository is licensed under the TUT License - see the [LICENSE](LICENSE) file for details
+
+## Acknowledgments
+
+The research leading to these results has received funding from the European Research Council under the European Unions H2020 Framework Programme through ERC Grant Agreement 637422 EVERYSOUND.
