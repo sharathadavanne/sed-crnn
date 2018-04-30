@@ -1,4 +1,8 @@
 # Multichannel sound event detection using convolutional recurrent neural network (MSEDnet)
+Sound event detection (SED) is the task of recognizing the sound events and their respective temporal start and end time in a recording. Sound events in real life do not always occur in isolation, but tend to considerably overlap with each other.
+Recognizing such overlapping sound events is referred as polyphonic SED. Performing polyphonic SED using monochannel audio is a challenging task. These overlapping sound events can potentially be recognized better with multichannel audio.
+The proposed MSEDnet intends to do polyphonic SED using multichannel audio.
+
 MSEDnet was first proposed in 'Sound event detection using spatial features and convolutional recurrent neural network' (https://arxiv.org/abs/1706.02291). It recently won the DCASE 2017 real-life sound event detection (https://goo.gl/8eqCg3). We are releasing a simple vanila code without much frills here. 
 
 If you are using anything from this repository please consider citing,
@@ -21,7 +25,16 @@ Similar CRNN architecture has been successfully used for different tasks and res
 4. Music emotion recognition
    - Miroslav Malik, Sharath Adavanne, Konstantinos Drossos, Tuomas Virtanen, Dasa Ticha, Roman Jarina , 'Stacked convolutional and recurrent neural networks for music emotion recognition', at Sound and Music Computing Conference (SMC 2017)
 
+## More about MSEDnet
+The proposed MSEDnet is shown in the figure below. The input to the method is a multichannel audio.  The log mel-band energy feature is extracted from each channel of the multichannel audio.
+These audio features are fed to a convolutional recurrent neural network that maps them to the activities of the sound event classes in the dataset. The output of the neural network is in the
+continuous range of [0, 1] for each of the sound event classes and corresponds to the probability of the particular sound class being active in the frame. This continuous range output is further
+thresholded to obtain the final binary decision of the sound event class being active or absent in each frame. In general, the proposed method takes a sequence of frame-wise audio features as the
+input and predicts the activity of the target sound event classes for each of the input frames.
 
+<p align="center">
+   <img src="https://github.com/sharathadavanne/multichannel-sed-crnn/blob/master/images/CRNN_SED_DCASE2017_task3.jpg" width="400" title="MSEDnet Architecture">
+</p>
 ## Getting Started
 
 This repository is built around the DCASE 2017 task 3 dataset, and consists of four Python scripts. 
