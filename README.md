@@ -7,7 +7,7 @@ MSEDnet was first proposed in 'Sound event detection using spatial features and 
 
 If you are using anything from this repository please consider citing,
 
-Sharath Adavanne, Pasi Pertila and Tuomas Virtanen, "Sound event detection using spatial features and convolutional recurrent neural network" in IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP 2017)
+>Sharath Adavanne, Pasi Pertila and Tuomas Virtanen, "Sound event detection using spatial features and convolutional recurrent neural network" in IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP 2017)
 
 Similar CRNN architecture has been successfully used for different tasks and research challenges as below. You can accordingly play around with a suitable prediction layer as the task requires.
 
@@ -35,6 +35,7 @@ input and predicts the activity of the target sound event classes for each of th
 <p align="center">
    <img src="https://github.com/sharathadavanne/multichannel-sed-crnn/blob/master/images/CRNN_SED_DCASE2017_task3.jpg" width="400" title="MSEDnet Architecture">
 </p>
+
 ## Getting Started
 
 This repository is built around the DCASE 2017 task 3 dataset, and consists of four Python scripts. 
