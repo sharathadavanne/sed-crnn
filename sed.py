@@ -11,7 +11,8 @@ from sklearn.metrics import confusion_matrix
 import metrics
 import utils
 from IPython import embed
-
+import keras.backend as K
+K.set_image_data_format('channels_first')
 plot.switch_backend('agg')
 sys.setrecursionlimit(10000)
 

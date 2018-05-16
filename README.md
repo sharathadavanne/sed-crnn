@@ -35,6 +35,8 @@ input and predicts the activity of the target sound event classes for each of th
 <p align="center">
    <img src="https://github.com/sharathadavanne/multichannel-sed-crnn/blob/master/images/CRNN_SED_DCASE2017_task3.jpg" width="400" title="MSEDnet Architecture">
 </p>
+
+
 ## Getting Started
 
 This repository is built around the DCASE 2017 task 3 dataset, and consists of four Python scripts. 
