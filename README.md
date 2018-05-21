@@ -3,7 +3,7 @@ Sound event detection (SED) is the task of recognizing the sound events and thei
 Recognizing such overlapping sound events is referred as polyphonic SED. Performing polyphonic SED using monochannel audio is a challenging task. These overlapping sound events can potentially be recognized better with multichannel audio.
 The proposed MSEDnet intends to do polyphonic SED using multichannel audio.
 
-MSEDnet was first proposed in 'Sound event detection using spatial features and convolutional recurrent neural network' (https://arxiv.org/abs/1706.02291). It recently won the DCASE 2017 real-life sound event detection (https://goo.gl/8eqCg3). We are releasing a simple vanila code without much frills here. 
+MSEDnet was first proposed in '[Sound event detection using spatial features and convolutional recurrent neural network](https://arxiv.org/abs/1706.02291 "Arxiv paper")'. It recently won the [DCASE 2017 real-life sound event detection](https://goo.gl/8eqCg3 "Challenge webpage"). We are releasing a simple vanila code without much frills here. 
 
 If you are using anything from this repository please consider citing,
 
@@ -12,18 +12,18 @@ If you are using anything from this repository please consider citing,
 Similar CRNN architecture has been successfully used for different tasks and research challenges as below. You can accordingly play around with a suitable prediction layer as the task requires.
 
 1. Sound event detection
-   - Sharath Adavanne, Pasi Pertila and Tuomas Virtanen, 'Sound event detection using spatial features and convolutional recurrent neural network' at IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP 2017) 
-   - Sharath Adavanne, Archontis Politis and Tuomas Virtanen, 'Multichannel sound event detection using 3D convolutional neural networks for learning inter-channel features' at International Joint Conference on Neural Networks (IJCNN 2018)
+   - Sharath Adavanne, Pasi Pertila and Tuomas Virtanen, '[Sound event detection using spatial features and convolutional recurrent neural network](https://arxiv.org/abs/1706.02291 "Arxiv paper")' at IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP 2017) 
+   - Sharath Adavanne, Archontis Politis and Tuomas Virtanen, '[Multichannel sound event detection using 3D convolutional neural networks for learning inter-channel features](https://arxiv.org/abs/1801.09522 "Arxiv paper")' at International Joint Conference on Neural Networks (IJCNN 2018)
 
 2. SED with weak labels
-   - Sharath Adavanne and Tuomas Virtanen, 'Sound event detection using weakly labeled dataset with stacked convolutional and recurrent neural network' at Detection and Classification of Acoustic Scenes and Events (DCASE 2017)
+   - Sharath Adavanne and Tuomas Virtanen, '[Sound event detection using weakly labeled dataset with stacked convolutional and recurrent neural network](https://arxiv.org/abs/1710.02998 "Arxiv paper")' at Detection and Classification of Acoustic Scenes and Events (DCASE 2017)
 
 3. Bird audio detection 
-   - Sharath Adavanne, Konstantinos Drossos, Emre Cakir and Tuomas Virtanen, 'Stacked convolutional and recurrent neural networks for bird audio detection' at European Signal Processing Conference (EUSIPCO 2017)
-   - Emre Cakir, Sharath Adavanne, Giambattista Parascandolo, Konstantinos Drossos and Tuomas Virtanen, 'Convolutional recurrent neural networks for bird audio detection' at European Signal Processing Conference (EUSIPCO 2017)
+   - Sharath Adavanne, Konstantinos Drossos, Emre Cakir and Tuomas Virtanen, '[Stacked convolutional and recurrent neural networks for bird audio detection](https://arxiv.org/abs/1706.02047 "Arxiv paper")' at European Signal Processing Conference (EUSIPCO 2017)
+   - Emre Cakir, Sharath Adavanne, Giambattista Parascandolo, Konstantinos Drossos and Tuomas Virtanen, '[Convolutional recurrent neural networks for bird audio detection](https://arxiv.org/abs/1703.02317 "Arxiv paper")' at European Signal Processing Conference (EUSIPCO 2017)
 
 4. Music emotion recognition
-   - Miroslav Malik, Sharath Adavanne, Konstantinos Drossos, Tuomas Virtanen, Dasa Ticha, Roman Jarina , 'Stacked convolutional and recurrent neural networks for music emotion recognition', at Sound and Music Computing Conference (SMC 2017)
+   - Miroslav Malik, Sharath Adavanne, Konstantinos Drossos, Tuomas Virtanen, Dasa Ticha, Roman Jarina , '[Stacked convolutional and recurrent neural networks for music emotion recognition](https://arxiv.org/abs/1706.02292 "Arxiv paper")', at Sound and Music Computing Conference (SMC 2017)
 
 ## More about MSEDnet
 The proposed MSEDnet is shown in the figure below. The input to the method is a multichannel audio.  The log mel-band energy feature is extracted from each channel of the multichannel audio.
