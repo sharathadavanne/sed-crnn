@@ -26,9 +26,15 @@ def f1_overall_framewise(O, T):
 def er_overall_framewise(O, T):
     if len(O.shape) == 3:
         O, T = utils.reshape_3Dto2D(O), utils.reshape_3Dto2D(T)
-    TP = ((2 * T - O) == 1).sum()
-    Nref, Nsys = T.sum(), O.sum()
-    ER = (max(Nref, Nsys) - TP) / (Nref + 0.0)
+    FP = np.logical_and(T == 0, O == 1).sum(1)
+    FN = np.logical_and(T == 1, O == 0).sum(1)
+
+    S = np.minimum(FP, FN).sum()
+    D = np.maximum(0, FN-FP).sum()
+    I = np.maximum(0, FP-FN).sum()
+
+    Nref = T.sum()
+    ER = (S+D+I) / (Nref + 0.0)
     return ER
 
 

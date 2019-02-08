@@ -65,8 +65,8 @@ The sound event detection metrics - error rate (ER) and F-score for one second s
 
 | MSEDnet mode | ER | F|
 | ----| --- | --- |
-| Single channel | 0.49 | 0.50 |
-| Multichannel |0.48 | 0.53|
+| Single channel | 0.71 | 0.53 |
+| Multichannel |0.68 | 0.53|
 
 The results vary from the original paper, as we are not using the evaluation split here
 
