@@ -173,8 +173,8 @@ for audio_filename in os.listdir(audio_folder):
 # -----------------------------------------------------------------------
 
 for fold in folds_list:
-    train_file = os.path.join(evaluation_setup_folder, 'street_fold{}_train.txt'.format(1))
-    evaluate_file = os.path.join(evaluation_setup_folder, 'street_fold{}_evaluate.txt'.format(1))
+    train_file = os.path.join(evaluation_setup_folder, 'street_fold{}_train.txt'.format(fold))
+    evaluate_file = os.path.join(evaluation_setup_folder, 'street_fold{}_evaluate.txt'.format(fold))
     train_dict = load_desc_file(train_file)
     test_dict = load_desc_file(evaluate_file)
 
