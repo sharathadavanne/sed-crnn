@@ -101,7 +101,7 @@ __fig_name = '{}_{}'.format('mon' if is_mono else 'bin', time.strftime("%Y_%m_%d
 nb_ch = 1 if is_mono else 2
 batch_size = 128    # Decrease this if you want to run on smaller GPU's
 seq_len = 256       # Frame sequence length. Input to the CRNN.
-nb_epoch = 2      # Training epochs
+nb_epoch = 500      # Training epochs
 patience = int(0.25 * nb_epoch)  # Patience for early stopping
 
 # Number of frames in 1 second, required to calculate F and ER for 1 sec segments.
