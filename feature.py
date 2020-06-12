@@ -98,7 +98,7 @@ def load_desc_file(_desc_file):
 
 
 def extract_mbe(_y, _sr, _nfft, _nb_mel):
-    spec, n_fft = librosa.core.spectrum._spectrogram(y=_y, n_fft=_nfft, hop_length=_nfft/2, power=1)
+    spec, n_fft = librosa.core.spectrum._spectrogram(y=_y, n_fft=_nfft, hop_length=_nfft//2, power=1)
     mel_basis = librosa.filters.mel(sr=_sr, n_fft=_nfft, n_mels=_nb_mel)
     return np.log(np.dot(mel_basis, spec))
 
@@ -106,7 +106,7 @@ def extract_mbe(_y, _sr, _nfft, _nb_mel):
 #              Main script starts here
 # ###################################################################
 
-is_mono = False
+is_mono = True
 __class_labels = {
     'brakes squeaking': 0,
     'car': 1,
@@ -118,17 +118,17 @@ __class_labels = {
 
 # location of data.
 folds_list = [1, 2, 3, 4]
-evaluation_setup_folder = '/home/adavanne/taitoSharedData/DCASE2017/task_3/TUT-sound-events-2017-development/evaluation_setup'
-audio_folder = '/home/adavanne/taitoSharedData/DCASE2017/task_3/TUT-sound-events-2017-development/audio/street'
+evaluation_setup_folder = '/scratch/asignal/sharath/DCASE2017/TUT-sound-events-2017-development/evaluation_setup'
+audio_folder = '/scratch/asignal/sharath/DCASE2017/TUT-sound-events-2017-development/audio/street'
 
 # Output
-feat_folder = '/home/adavanne/taitoSharedData/DCASE2017/task_3/feat/'
+feat_folder = '/scratch/asignal/sharath/DCASE2017/TUT-sound-events-2017-development/feat/'
 utils.create_folder(feat_folder)
 
 # User set parameters
 nfft = 2048
 win_len = nfft
-hop_len = win_len / 2
+hop_len = win_len // 2
 nb_mel_bands = 40
 sr = 44100
 

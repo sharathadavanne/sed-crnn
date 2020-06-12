@@ -92,16 +92,16 @@ def preprocess_data(_X, _Y, _X_test, _Y_test, _seq_len, _nb_ch):
 # MAIN SCRIPT STARTS HERE
 #######################################################################################
 
-is_mono = False  # True: mono-channel input, False: binaural input
+is_mono = True  # True: mono-channel input, False: binaural input
 
-feat_folder = '/proj/asignal/DCASE2017/task_3/feat/'
+feat_folder = '/scratch/asignal/sharath/DCASE2017/TUT-sound-events-2017-development/feat/'
 __fig_name = '{}_{}'.format('mon' if is_mono else 'bin', time.strftime("%Y_%m_%d_%H_%M_%S"))
 
 
 nb_ch = 1 if is_mono else 2
 batch_size = 128    # Decrease this if you want to run on smaller GPU's
 seq_len = 256       # Frame sequence length. Input to the CRNN.
-nb_epoch = 500      # Training epochs
+nb_epoch = 2      # Training epochs
 patience = int(0.25 * nb_epoch)  # Patience for early stopping
 
 # Number of frames in 1 second, required to calculate F and ER for 1 sec segments.
