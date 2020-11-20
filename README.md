@@ -1,7 +1,7 @@
 # Single and multichannel sound event detection using convolutional recurrent neural network
-[Sound event detection (SED)](https://www.aane.in/research/sound-event-detection) is the task of recognizing the sound events and their respective temporal start and end time in a recording. Sound events in real life do not always occur in isolation, but tend to considerably overlap with each other.
+[Sound event detection (SED)](https://www.aane.in/research/computational-audio-scene-analysis-casa/sound-event-detection) is the task of recognizing the sound events and their respective temporal start and end time in a recording. Sound events in real life do not always occur in isolation, but tend to considerably overlap with each other.
 Recognizing such overlapping sound events is referred as polyphonic SED. Performing polyphonic SED using monochannel audio is a challenging task. These overlapping sound events can potentially be recognized better with multichannel audio.
-This repository supports both single- and multichannel versions of polyphonic SED and is referred as SEDnet hereafter. You can read more about [sound event detection literature here](https://www.aane.in/research/sound-event-detection).
+This repository supports both single- and multichannel versions of polyphonic SED and is referred as SEDnet hereafter. You can read more about [sound event detection literature here](https://www.aane.in/research/computational-audio-scene-analysis-casa/sound-event-detection).
 
 This method was first proposed in '[Sound event detection using spatial features and convolutional recurrent neural network](https://arxiv.org/abs/1706.02291 "Arxiv paper")'. It recently won the [DCASE 2017 real-life sound event detection](https://goo.gl/8eqCg3 "Challenge webpage"). We are releasing a simple vanila code without much frills here. 
 
